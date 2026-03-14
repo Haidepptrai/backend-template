@@ -1,4 +1,5 @@
 ﻿using Application.Persistence;
+using Application.Services.Category.Request;
 using Domain.Category;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,11 +19,13 @@ public class CategoryController : ControllerBase
 
     // CREATE
     [HttpPost]
-    public async Task<IActionResult> CreateCategory([FromBody] CategoryEntity category)
+    public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequest category)
     {
         try
         {
-            _context.Category.Add(category);
+            var categoryEntity = new CategoryEntity(category.Name, category.Slug);
+
+            _context.Category.Add(categoryEntity);
             await _context.SaveChangesAsync();
 
             return Ok(category);
