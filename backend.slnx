@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Directory.Packages.props" />
+    <File Path="docker-compose.yml" />
+  </Folder>
+  <Project Path="Application/Application.csproj" Id="367825ad-b403-40b4-9bab-12e5243e115e" />
+  <Project Path="Client.WebApi/Client.WebApi.csproj" />
+  <Project Path="Domain/Domain.csproj" />
+</Solution>
