@@ -1,5 +1,6 @@
 
 using Application.Persistence;
+using Application.Services.Category;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 
@@ -29,6 +30,8 @@ public class Program
             options.UseNpgsql(
                 builder.Configuration.GetConnectionString("DefaultConnection")
                 ?? throw new ApplicationException("Connection String Not Found")));
+
+        builder.Services.AddScoped<CategoryService>();
 
         var app = builder.Build();
 
