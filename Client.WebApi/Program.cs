@@ -1,8 +1,11 @@
 
 using Application.Persistence;
 using Application.Services.Category;
+using Application.Services.Category.Request.CreateCategory;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 
 namespace Client.WebApi;
 
@@ -32,6 +35,8 @@ public class Program
                 ?? throw new ApplicationException("Connection String Not Found")));
 
         builder.Services.AddScoped<CategoryService>();
+        builder.Services.AddValidatorsFromAssembly(typeof(CreateCategoryRequestValidator).Assembly);
+        builder.Services.AddFluentValidationAutoValidation();
 
         var app = builder.Build();
 
