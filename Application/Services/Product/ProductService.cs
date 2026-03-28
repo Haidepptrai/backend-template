@@ -1,5 +1,5 @@
-using Application.Persistence;
 using Application.Common.Pagination;
+using Application.Persistence;
 using Application.Services.Product.Request;
 using Application.Services.Product.Request.CreateProduct;
 using Application.Services.Product.Request.UpdateProduct;
@@ -37,7 +37,6 @@ public class ProductService : IProductService
         var totalItems = await dbQuery.CountAsync();
         var totalPages = (int)Math.Ceiling(totalItems / (double)query.PageSize);
 
-        // Technique: Query by ID first to optimize performance
         var productIds = await dbQuery
             .OrderBy(p => p.Id)
             .Skip((query.Page - 1) * query.PageSize)
