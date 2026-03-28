@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services.Category;
 
-public class CategoryService
+public class CategoryService : ICategoryService
 {
     private readonly ApplicationDbContext _context;
 
@@ -39,6 +39,7 @@ public class CategoryService
     public async Task<CategoryEntity?> GetCategoryByIdAsync(int id)
     {
         return await _context.Category
+            .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Id == id);
     }
 
