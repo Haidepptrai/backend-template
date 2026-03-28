@@ -1,4 +1,4 @@
-﻿namespace Application.Services.Category.Request;
+﻿namespace Application.Services.Category.Request.CreateCategory;
 
 public sealed record CreateCategoryRequest
 {

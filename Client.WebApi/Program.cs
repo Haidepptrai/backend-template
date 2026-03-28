@@ -1,8 +1,12 @@
 
 using Application.Persistence;
 using Application.Services.Category;
+using Application.Services.Category.Request.CreateCategory;
+using Application.Services.Product;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
+using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 
 namespace Client.WebApi;
 
@@ -31,7 +35,11 @@ public class Program
                 builder.Configuration.GetConnectionString("DefaultConnection")
                 ?? throw new ApplicationException("Connection String Not Found")));
 
-        builder.Services.AddScoped<CategoryService>();
+        builder.Services.AddScoped<ICategoryService, CategoryService>();
+        builder.Services.AddScoped<IProductService, ProductService>();
+
+        builder.Services.AddValidatorsFromAssembly(typeof(CreateCategoryRequestValidator).Assembly);
+        builder.Services.AddFluentValidationAutoValidation();
 
         var app = builder.Build();
 
@@ -45,7 +53,6 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-
 
         app.MapControllers();
 
