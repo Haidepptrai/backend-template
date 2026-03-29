@@ -1,5 +1,5 @@
-using Application.Persistence;
 using Application.Common.Pagination;
+using Application.Persistence;
 using Application.Services.Product.Request;
 using Application.Services.Product.Request.CreateProduct;
 using Application.Services.Product.Request.UpdateProduct;

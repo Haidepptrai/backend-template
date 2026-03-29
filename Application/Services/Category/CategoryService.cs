@@ -38,9 +38,11 @@ public class CategoryService : ICategoryService
     // READ BY ID
     public async Task<CategoryEntity?> GetCategoryByIdAsync(int id)
     {
-        return await _context.Category
+        var category = await _context.Category
             .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Id == id);
+
+        return category;
     }
 
     // UPDATE
