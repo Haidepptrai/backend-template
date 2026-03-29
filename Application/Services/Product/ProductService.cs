@@ -37,6 +37,7 @@ public class ProductService : IProductService
         var totalItems = await dbQuery.CountAsync();
         var totalPages = (int)Math.Ceiling(totalItems / (double)query.PageSize);
 
+        // Technique: Query by ID first to optimize performance
         var productIds = await dbQuery
             .OrderBy(p => p.Id)
             .Skip((query.Page - 1) * query.PageSize)

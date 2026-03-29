@@ -1,4 +1,5 @@
 using Application.Common.ResponseWrapper;
+using Application.Common.Pagination;
 using Application.Services.Product;
 using Application.Services.Product.Request;
 using Application.Services.Product.Request.CreateProduct;
@@ -83,9 +84,9 @@ public class ProductController : ControllerBase
 
             return Ok(product);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            return StatusCode(500, ex.Message);
+            return StatusCode(500, "An unexpected error occurred.");
         }
     }
 
