@@ -1,4 +1,4 @@
-using Application.Common.Pagination;
+using Application.Common.ResponseWrapper;
 using Application.Services.Product;
 using Application.Services.Product.Request;
 using Application.Services.Product.Request.CreateProduct;
@@ -21,12 +21,14 @@ public class ProductController : ControllerBase
 
     // READ ALL
     [HttpGet]
-    public async Task<ActionResult<PagedResult<GetProductsResponse>>> GetProducts([FromQuery] GetProductsQuery query)
+    public async Task<ActionResult<ApiResponse<List<GetProductsResponse>>>> GetProducts([FromQuery] GetProductsQuery query)
     {
         try
         {
             var products = await _productService.GetProductsAsync(query);
-            return Ok(products);
+            var response = ApiResponse<List<GetProductsResponse>>.SuccessWithMetaData(products.Data, products.Metadata, "Get all products successfully");
+
+            return Ok(response);
         }
         catch (Exception)
         {

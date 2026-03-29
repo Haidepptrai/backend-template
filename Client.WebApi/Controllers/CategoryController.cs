@@ -1,4 +1,5 @@
-﻿using Application.Services.Category;
+﻿using Application.Common.ResponseWrapper;
+using Application.Services.Category;
 using Application.Services.Category.Request.CreateCategory;
 using Application.Services.Category.Response;
 using Domain.Category;
@@ -19,12 +20,13 @@ public class CategoryController : ControllerBase
 
     // READ ALL
     [HttpGet]
-    public async Task<ActionResult<List<GetCategoriesResponse>>> GetCategories()
+    public async Task<ActionResult<ApiResponse<List<GetCategoriesResponse>>>> GetCategories()
     {
         try
         {
             var categories = await _categoryService.GetCategoriesAsync();
-            return Ok(categories);
+
+            return Ok(ApiResponse<List<GetCategoriesResponse>>.Success(categories, "Categories retrieved successfully."));
         }
         catch (Exception)
         {

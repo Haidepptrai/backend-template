@@ -18,7 +18,7 @@ public class ProductEntityConfiguration : BaseEntityConfiguration<ProductEntity>
             .HasColumnType("decimal(18,2)");
 
         builder.HasOne(p => p.Category)
-            .WithMany(c => c.Products)
+            .WithMany()
             .HasForeignKey(p => p.CategoryId)
             .OnDelete(DeleteBehavior.Restrict);
     }
