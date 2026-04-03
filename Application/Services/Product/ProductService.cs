@@ -1,5 +1,6 @@
 using Application.Common.Pagination;
 using Application.Persistence;
+using Application.Services.Product.Exceptions;
 using Application.Services.Product.Request;
 using Application.Services.Product.Request.CreateProduct;
 using Application.Services.Product.Request.UpdateProduct;
@@ -73,9 +74,14 @@ public class ProductService : IProductService
     // READ BY ID
     public async Task<ProductEntity?> GetProductByIdAsync(int id)
     {
-        return await _context.Product
+        var product = await _context.Product
             .Include(p => p.Category)
             .FirstOrDefaultAsync(p => p.Id == id);
+
+        if (product == null)
+            throw new ProductNotFoundException(id);
+
+        return product;
     }
 
     // UPDATE
@@ -84,7 +90,7 @@ public class ProductService : IProductService
         var product = await _context.Product.FindAsync(id);
 
         if (product == null)
-            return null;
+            throw new ProductNotFoundException(id);
 
         product.Name = request.Name;
         product.Price = request.Price;
@@ -102,7 +108,7 @@ public class ProductService : IProductService
         var product = await _context.Product.FindAsync(id);
 
         if (product == null)
-            return false;
+            throw new ProductNotFoundException(id);
 
         _context.Product.Remove(product);
         await _context.SaveChangesAsync();
