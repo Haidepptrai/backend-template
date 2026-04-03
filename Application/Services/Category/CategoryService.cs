@@ -1,4 +1,5 @@
-﻿using Application.Persistence;
+using Application.Persistence;
+using Application.Services.Category.Exceptions;
 using Application.Services.Category.Request.CreateCategory;
 using Application.Services.Category.Response;
 using Domain.Category;
@@ -42,6 +43,9 @@ public class CategoryService : ICategoryService
             .AsNoTracking()
             .FirstOrDefaultAsync(c => c.Id == id);
 
+        if (category == null)
+            throw new CategoryNotFoundException(id);
+
         return category;
     }
 
@@ -51,7 +55,7 @@ public class CategoryService : ICategoryService
         var category = await _context.Category.FindAsync(id);
 
         if (category == null)
-            return null;
+            throw new CategoryNotFoundException(id);
 
         category.Name = updatedCategory.Name;
         category.Slug = updatedCategory.Slug;
@@ -68,7 +72,7 @@ public class CategoryService : ICategoryService
         var category = await _context.Category.FindAsync(id);
 
         if (category == null)
-            return false;
+            throw new CategoryNotFoundException(id);
 
         _context.Category.Remove(category);
         await _context.SaveChangesAsync();

@@ -1,4 +1,4 @@
-﻿using Application.Common.ResponseWrapper;
+using Application.Common.ResponseWrapper;
 using Application.Services.Category;
 using Application.Services.Category.Request.CreateCategory;
 using Application.Services.Category.Response;
@@ -22,87 +22,43 @@ public class CategoryController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<ApiResponse<List<GetCategoriesResponse>>>> GetCategories()
     {
-        try
-        {
-            var categories = await _categoryService.GetCategoriesAsync();
+        var categories = await _categoryService.GetCategoriesAsync();
 
-            return Ok(ApiResponse<List<GetCategoriesResponse>>.Success(categories, "Categories retrieved successfully."));
-        }
-        catch (Exception)
-        {
-            return StatusCode(500, "An unexpected error occurred.");
-        }
+        return Ok(ApiResponse<List<GetCategoriesResponse>>.Success(categories, "Categories retrieved successfully."));
     }
 
     // READ BY ID
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetCategory(int id)
+    public async Task<ActionResult<ApiResponse<CategoryEntity>>> GetCategory(int id)
     {
-        try
-        {
-            var category = await _categoryService.GetCategoryByIdAsync(id);
+        var category = await _categoryService.GetCategoryByIdAsync(id);
 
-            if (category == null)
-                return NotFound();
-
-            return Ok(category);
-        }
-        catch (Exception)
-        {
-            return StatusCode(500, "An unexpected error occurred.");
-        }
+        return Ok(ApiResponse<CategoryEntity>.Success(category, "Category retrieved successfully."));
     }
 
     // CREATE
     [HttpPost]
-    public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequest request)
+    public async Task<ActionResult<ApiResponse<CategoryEntity>>> CreateCategory([FromBody] CreateCategoryRequest request)
     {
-        try
-        {
-            var category = await _categoryService.CreateCategoryAsync(request);
-            return Ok(category);
-        }
-        catch (Exception)
-        {
-            return StatusCode(500, "An unexpected error occurred.");
-        }
+        var category = await _categoryService.CreateCategoryAsync(request);
+        return Ok(ApiResponse<CategoryEntity>.Success(category, "Category created successfully."));
     }
 
     // UPDATE
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateCategory(int id, [FromBody] CategoryEntity updatedCategory)
+    public async Task<ActionResult<ApiResponse<CategoryEntity>>> UpdateCategory(int id, [FromBody] CategoryEntity updatedCategory)
     {
-        try
-        {
-            var category = await _categoryService.UpdateCategoryAsync(id, updatedCategory);
+        var category = await _categoryService.UpdateCategoryAsync(id, updatedCategory);
 
-            if (category == null)
-                return NotFound();
-
-            return Ok(category);
-        }
-        catch (Exception)
-        {
-            return StatusCode(500, "An unexpected error occurred.");
-        }
+        return Ok(ApiResponse<CategoryEntity>.Success(category, "Category updated successfully."));
     }
 
     // DELETE
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteCategory(int id)
+    public async Task<ActionResult<ApiResponse<string>>> DeleteCategory(int id)
     {
-        try
-        {
-            var deleted = await _categoryService.DeleteCategoryAsync(id);
+        await _categoryService.DeleteCategoryAsync(id);
 
-            if (!deleted)
-                return NotFound();
-
-            return Ok("Category deleted successfully.");
-        }
-        catch (Exception)
-        {
-            return StatusCode(500, "An unexpected error occurred.");
-        }
+        return Ok(ApiResponse<string>.Success(null, "Category deleted successfully."));
     }
 }
