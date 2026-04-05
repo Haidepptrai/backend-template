@@ -4,6 +4,8 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.3.30" />
+    <PackageVersion Include="AWSSDK.S3" Version="4.0.20.2" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.0" />

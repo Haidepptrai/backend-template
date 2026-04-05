@@ -12,5 +12,19 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  s3-emulator:
+    image: localstack/localstack:4.13.0
+    entrypoint: >
+      /bin/sh -c "chmod +x /etc/localstack/init/ready.d/*.sh 2>/dev/null || true; exec docker-entrypoint.sh"
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3
+      - AWS_DEFAULT_REGION=ap-southeast-1
+      - BUCKET_NAME=my-initial-bucket
+    volumes:
+      - "./localstack_data:/var/lib/localstack"
+      - "./init-scripts:/etc/localstack/init/ready.d"
+
 volumes:
   postgres_data:

@@ -1,13 +1,15 @@
 
+using Amazon.S3;
 using Application.Persistence;
 using Application.Services.Category;
 using Application.Services.Category.Request.CreateCategory;
 using Application.Services.Product;
+using Client.WebApi.Extensions;
+using Client.WebApi.Middlewares;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
-using Client.WebApi.Middlewares;
 
 namespace Client.WebApi;
 
@@ -43,6 +45,8 @@ public class Program
 
         builder.Services.AddValidatorsFromAssembly(typeof(CreateCategoryRequestValidator).Assembly);
         builder.Services.AddFluentValidationAutoValidation();
+
+        builder.Services.AddAwsS3(builder.Configuration);
 
         var app = builder.Build();
 
