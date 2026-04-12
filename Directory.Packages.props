@@ -7,6 +7,8 @@
     <PackageVersion Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.3.30" />
     <PackageVersion Include="AWSSDK.S3" Version="4.0.20.2" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
+    <PackageVersion Include="Isopoh.Cryptography.Argon2" Version="2.0.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.3.9" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.0" />
     <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />

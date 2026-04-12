@@ -3,6 +3,7 @@ using Application.Services.Category;
 using Application.Services.Category.Request.CreateCategory;
 using Application.Services.Category.Response;
 using Domain.Category;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Client.WebApi.Controllers;
@@ -20,6 +21,7 @@ public class CategoryController : ControllerBase
 
     // READ ALL
     [HttpGet]
+    [Authorize(Roles = "User")]
     public async Task<ActionResult<ApiResponse<List<GetCategoriesResponse>>>> GetCategories()
     {
         var categories = await _categoryService.GetCategoriesAsync();
